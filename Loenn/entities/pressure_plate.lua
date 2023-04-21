@@ -9,6 +9,7 @@ pressurePlate.placements = {
     name = "pressure_plate",
     data = {
         activationIds = ""
+        multiplayerMode = false
     }
 }
 

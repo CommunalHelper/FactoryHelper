@@ -136,6 +136,8 @@ entities.FactoryHelper/PowerLine.attributes.description.initialDelay=The time in
 # Pressure Plate
 entities.FactoryHelper/PressurePlate.placements.name.pressure_plate=Pressure Plate
 entities.FactoryHelper/PressurePlate.attributes.description.activationIds=A comma-separated list of all the activator IDs this button should set when pressed.
+entities.FactoryHelper/PressurePlate.attributes.description.multiplayerMode=If `true`, this button can be activate by Others from CelesteNet.
+
 
 # Rust Berry
 entities.FactoryHelper/RustBerry.placements.name.rust_berry=Rusty Berry

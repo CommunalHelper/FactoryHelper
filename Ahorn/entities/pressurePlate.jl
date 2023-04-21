@@ -2,7 +2,7 @@ module FactoryHelperPressurePlate
 
 using ..Ahorn, Maple
 
-@mapdef Entity "FactoryHelper/PressurePlate" PressurePlate(x::Integer, y::Integer, activationIds::String="")
+@mapdef Entity "FactoryHelper/PressurePlate" PressurePlate(x::Integer, y::Integer, activationIds::String="", multiplayerMode::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Pressure Plate (FactoryHelper)" => Ahorn.EntityPlacement(

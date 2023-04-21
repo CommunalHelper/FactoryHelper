@@ -93,6 +93,7 @@ placements.entities.FactoryHelper/PowerLine.tooltips.startActive=If `true` the e
 placements.entities.FactoryHelper/PowerLine.tooltips.colorCode=Hex color code (example: ff0000 is red) for the power line's power color, in both active and inactive state. Inactive is a dimmer version of this hex color.
 placements.entities.FactoryHelper/PowerLine.tooltips.initialDelay=The time it takes for the power line to switch states after it is activated.
 placements.entities.FactoryHelper/PressurePlate.tooltips.activationIds=A comma-separated list of all the activator IDs this button should set when pressed.
+placements.entities.FactoryHelper/PressurePlate.tooltips.multiplayerMode=If `true`, this button can be activate by Others from CelesteNet.
 
 # Rusty Lamp
 placements.entities.FactoryHelper/RustyLamp.tooltips.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.

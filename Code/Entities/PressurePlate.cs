@@ -9,15 +9,18 @@ namespace FactoryHelper.Entities {
     [CustomEntity("FactoryHelper/PressurePlate")]
     public class PressurePlate : Solid {
         private readonly HashSet<string> _activationIds = new();
+        private readonly bool _multiplayerMode = false;
+
         private readonly Button _button;
         private bool _currentButtonState = false;
         private bool _previousButtonState = false;
 
-        public PressurePlate(Vector2 position, string activationIds) 
+        public PressurePlate(Vector2 position, string activationIds, bool multiplayerMode) 
             : base(position, 16, 6, false) {
             string[] activationIdArray = activationIds.Split(',');
             Collider.Position.Y += 10;
 
+            _multiplayerMode = multiplayerMode;
             foreach (string activationId in activationIdArray) {
                 if (activationId != "") {
                     _activationIds.Add(activationId);
@@ -32,7 +35,7 @@ namespace FactoryHelper.Entities {
         }
 
         public PressurePlate(EntityData data, Vector2 offset)
-            : this(data.Position + offset, data.Attr("activationIds")) {
+            : this(data.Position + offset, data.Attr("activationIds"), data.Bool("multiplayerMode", false)) {
         }
 
         public Image CaseImage { get; private set; }
@@ -53,8 +56,12 @@ namespace FactoryHelper.Entities {
             _currentButtonState = false;
             foreach (Entity actor in actors) {
                 if (Collide.Check(actor, _button)) {
-                    _currentButtonState = true;
-                    break;
+                    if (actor.GetType().FullName == "Celeste.Mod.CelesteNet.Client.Entities.Ghost") {
+                        if (_multiplayerMode) { _currentButtonState = true; break; }
+                    } else {
+                        _currentButtonState = true;
+                        break;
+                    }
                 }
             }
 
@@ -67,6 +74,7 @@ namespace FactoryHelper.Entities {
 
             _previousButtonState = _currentButtonState;
         }
+
 
         private void SendOutSignals(bool shouldActivate = true) {
             foreach (FactoryActivator activator in Scene.Tracker.GetComponents<FactoryActivator>()) {
