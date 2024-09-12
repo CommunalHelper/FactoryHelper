@@ -84,6 +84,7 @@ namespace FactoryHelper.Entities {
             Hold.OnHitSpring = HitSpring;
             Hold.OnHitSpinner = OnHitSpinner;
             Hold.SpeedGetter = () => Speed;
+            Hold.SpeedSetter = (speed) => Speed = speed;
 
             Add(_transitionListener = new TransitionListener());
             _transitionListener.OnOutBegin = () => _isCrucial = false;
