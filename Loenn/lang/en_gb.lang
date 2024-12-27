@@ -168,9 +168,10 @@ entities.FactoryHelper/WindTunnel.attributes.description.particleColors=Hex colo
 # -- Triggers --
 # Factory Activation Trigger
 triggers.FactoryHelper/FactoryActivationTrigger.placements.name.factory_activation=Factory Activation
+triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.mode=The mode of this trigger.\nActivate: will activate all entities with the given activator IDs.\nDeactivate: will deactivate all entities with the given activator IDs.
 triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.activationIds=A comma-separated list of all the activator IDs this trigger should set.
 triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.ownActivationId=String value of the trigger's activator ID. Can only fire if the ID is active.
-triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.resetOnLeave=Determines whether the IDs activated should be reset to their previous state upon leaving. If persistent is true this will be ignored.
+triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.lockState=Whether the activated entities should have their states locked after using the trigger.\nIf true, other activators will not affect those entities after the trigger is used until a retry.
 triggers.FactoryHelper/FactoryActivationTrigger.attributes.description.persistent=Determines whether the IDs not already persistent that are governed by this trigger should become persistent, meaning they will be active even after leaving the room.
 
 # Factory Event Trigger
