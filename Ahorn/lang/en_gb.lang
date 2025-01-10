@@ -7,6 +7,11 @@ placements.entities.FactoryHelper/BoomBox.tooltips.activationId=String value of 
 placements.entities.FactoryHelper/BoomBox.tooltips.initialDelay=The time it takes before the box starts turning on in seconds after activated.
 placements.entities.FactoryHelper/BoomBox.tooltips.startActive=If `true` the boom box will initially be active.
 
+# Boom Box Zip
+placements.entities.FactoryHelper/BoomBoxZip.tooltips.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
+placements.entities.FactoryHelper/BoomBoxZip.tooltips.initialDelay=The time it takes before the box starts turning on in seconds after activated.
+placements.entities.FactoryHelper/BoomBoxZip.tooltips.startActive=If `true` the boom box will initially be active.
+
 # Conveyor Belt
 placements.entities.FactoryHelper/Conveyor.tooltips.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
 placements.entities.FactoryHelper/Conveyor.tooltips.startLeft=If `true` the conveyor will initially be moving left.

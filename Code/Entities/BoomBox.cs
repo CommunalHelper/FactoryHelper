@@ -25,7 +25,7 @@ namespace FactoryHelper.Entities {
         private readonly float _initialDelay;
         private readonly Sprite _sprite;
         private readonly Sprite _boomSprite;
-        private readonly BoomCollider _boomCollider;
+        protected BoomCollider _boomCollider;
         private readonly SoundSource _sfx;
         private readonly float _startupTime = 1.5f;
         private float _angryResetTimer = 0f;
@@ -227,7 +227,7 @@ namespace FactoryHelper.Entities {
             Collidable = true;
         }
 
-        private class BoomCollider : Entity {
+        protected class BoomCollider : Entity {
             public BoomCollider(Vector2 position) : base(position) {
                 Collider = new Circle(40f, 0, 0);
             }
