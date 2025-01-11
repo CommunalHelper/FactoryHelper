@@ -29,7 +29,7 @@ end
 
 function killerDebris.texture(room, entity)
     local color = entity.color or "Bronze"
-    return string.format("danger/FactoryHelper/debris/fg_%s1", color)
+    return string.format("danger/FactoryHelper/debris/fg_%s1", string.lower(color))
 end
 
 function killerDebris.selection(room, entity)
