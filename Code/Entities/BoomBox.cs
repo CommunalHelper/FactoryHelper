@@ -174,7 +174,9 @@ namespace FactoryHelper.Entities {
 
         public override void DebugRender(Camera camera) {
             base.DebugRender(camera);
-            _boomCollider.Render(camera, Collidable ? Color.Red : Color.DarkRed);
+            if (Activator.IsOn) {
+                _boomCollider.Render(camera, Color.HotPink);
+            }            
         }
 
         private void HandleAngryMode() {
