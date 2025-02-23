@@ -39,6 +39,8 @@ namespace FactoryHelper.Entities {
         private readonly string _levelName;
         private readonly bool _tutorial;
         private readonly TransitionListener _transitionListener;
+        private readonly bool _canPassThroughSpinners;
+        private readonly ParticleType _p_Impact;
 
         private Vector2 _prevLiftSpeed;
         private Level _level;
@@ -55,7 +57,8 @@ namespace FactoryHelper.Entities {
         private BirdTutorialGui _tutorialPutDown;
         private bool _isCrucial;
 
-        public ThrowBox(Vector2 position, bool isMetal, bool tutorial = false, bool isSpecial = false, bool isCrucial = false) 
+        public ThrowBox(Vector2 position, bool isMetal, bool tutorial = false, bool isSpecial = false, bool isCrucial = false,
+            bool canPassThroughSpinners = false, string textureDirectory = "", bool overrideParticles = false, Color impactParticlesColor = default) 
             : base(position) {
             Position -= DISPLACEMENT;
             _starterPosition = Position;
@@ -64,14 +67,18 @@ namespace FactoryHelper.Entities {
             _isMetal = isMetal;
             IsSpecial = isSpecial;
             _isCrucial = isCrucial;
+            _canPassThroughSpinners = canPassThroughSpinners;
             _tutorial = tutorial;
+
+            textureDirectory = textureDirectory.Trim().TrimEnd('/');
+            string textureDir = string.IsNullOrEmpty(textureDirectory) ? "objects/FactoryHelper/crate" : textureDirectory;
             string pathString = isMetal ? "crate_metal0" : "crate0";
 
-            Add(_image = new Image(GFX.Game[$"objects/FactoryHelper/crate/{pathString}"]));
+            Add(_image = new Image(GFX.Game[$"{textureDir}/{pathString}"]));
             _image.Position += DISPLACEMENT;
 
             if (_isCrucial) {
-                Add(_warningImage = new Image(GFX.Game["objects/FactoryHelper/crate/crucial"]));
+                Add(_warningImage = new Image(GFX.Game[$"{textureDir}/crucial"]));
                 _warningImage.Position += DISPLACEMENT;
             }
 
@@ -98,10 +105,13 @@ namespace FactoryHelper.Entities {
 
             Add(new LightOcclude(0.2f));
             Add(new MirrorReflection());
+
+            _p_Impact = overrideParticles ? new(P_Impact) { Color = impactParticlesColor } : P_Impact;
         }
 
         public ThrowBox(EntityData data, Vector2 offset)
-            : this(data.Position + offset, data.Bool("isMetal", false), data.Bool("tutorial", false), data.Bool("isSpecial", false), data.Bool("isCrucial", false)) {
+            : this(data.Position + offset, data.Bool("isMetal", false), data.Bool("tutorial", false), data.Bool("isSpecial", false), data.Bool("isCrucial", false),
+                   data.Bool("canPassThroughSpinners", false), data.Attr("textureDirectory", ""), data.Bool("overrideParticles", false), data.HexColor("impactParticlesColor", default)) {
             _levelName = data.Level.Name;
         }
 
@@ -110,7 +120,8 @@ namespace FactoryHelper.Entities {
         }
 
         private void OnHitSpinner(Entity spinner) {
-            Shatter();
+            if (!_canPassThroughSpinners)
+                Shatter();
         }
 
         public override void Added(Scene scene) {
@@ -419,7 +430,7 @@ namespace FactoryHelper.Entities {
                 positionRange = Vector2.UnitX * 6f;
             }
 
-            (Scene as Level).Particles.Emit(P_Impact, 12, position, positionRange, direction);
+            (Scene as Level).Particles.Emit(_p_Impact, 12, position, positionRange, direction);
         }
 
         private void Shatter() {

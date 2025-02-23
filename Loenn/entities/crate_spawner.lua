@@ -12,6 +12,9 @@ crateSpawner.fieldInformation = {
     maximum = {
         fieldType = "integer",
         minimumValue = 0
+    },
+    impactParticlesColor = {
+        fieldType = "color"
     }
 }
 
@@ -26,7 +29,11 @@ crateSpawner.placements = {
             isRandom = false,
             fromTop = true,
             tutorial = false,
-            startActive = true
+            startActive = true,
+            canPassThroughSpinners = false,
+            textureDirectory = "objects/FactoryHelper/crate",
+            overrideParticles = false,
+            impactParticlesColor = "9c8d7b"
         }
     }
 }
@@ -37,7 +44,10 @@ local randomColor = {1.0, 0.5, 1.0, 0.2}
 function crateSpawner.sprite(room, entity)
     local sprites = {}
 
-    local texture = entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0"
+    local textureDirData = entity.textureDirectory
+    local textureDir = (textureDirData == nil or textureDirData == "") and "objects/FactoryHelper/crate" or textureDirData
+
+    local texture = textureDir .. (entity.isMetal and "/crate_metal0" or "/crate0")
     local crateSprite = drawableSprite.fromTexture(texture, entity)
     crateSprite.color = {1.0, 1.0, 1.0, 0.5}
 

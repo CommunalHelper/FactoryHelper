@@ -20,7 +20,14 @@ namespace FactoryHelper.Entities {
         private readonly bool _fromTop;
         private readonly bool _tutorial;
 
-        public ThrowBoxSpawner(Vector2 position, float delay, int maximum, string activationId, bool isMetal, bool isRandom, bool fromTop, bool tutorial, bool startActive) : base(position) {
+        private readonly bool _canPassThroughSpinners;
+        private readonly string _textureDirectory;
+        private readonly bool _overrideParticles;
+        private readonly Color _impactParticlesColor;
+
+        public ThrowBoxSpawner(Vector2 position, float delay, int maximum, string activationId, bool isMetal, bool isRandom, bool fromTop, bool tutorial, bool startActive,
+            bool canPassThroughSpinners = false, string textureDirectory = "", bool overrideParticles = false, Color impactParticlesColor = default)
+            : base(position) {
             Add(Activator = new FactoryActivator());
             Activator.ActivationId = activationId == string.Empty ? null : activationId;
             Activator.StartOn = startActive;
@@ -33,13 +40,20 @@ namespace FactoryHelper.Entities {
             _isRandom = isRandom;
             _fromTop = fromTop;
             _tutorial = tutorial;
+
+            _canPassThroughSpinners = canPassThroughSpinners;
+            _textureDirectory = textureDirectory;
+            _overrideParticles = overrideParticles;
+            _impactParticlesColor = impactParticlesColor;
+
             Add(new Coroutine(SpawnSequence()));
             Add(new SteamCollider(OnSteamWall));
         }
 
         public ThrowBoxSpawner(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Float("delay", 5f), data.Int("maximum", 0), data.Attr("activationId"), data.Bool("isMetal", false),
-                   data.Bool("isRandom", false), data.Bool("fromTop", true), data.Bool("tutorial", false), data.Bool("startActive", true)) {
+                   data.Bool("isRandom", false), data.Bool("fromTop", true), data.Bool("tutorial", false), data.Bool("startActive", true),
+                   data.Bool("canPassThroughSpinners", false), data.Attr("textureDirectory", ""), data.Bool("overrideParticles", false), data.HexColor("impactParticlesColor", default)) {
         }
 
         private void OnSteamWall(SteamWall steamWall) {
@@ -69,7 +83,11 @@ namespace FactoryHelper.Entities {
                 ThrowBox crate = new(
                     position: new Vector2(posX, posY),
                     isMetal: _isRandom ? Calc.Random.Chance(0.5f) : _isMetal,
-                    tutorial: _tutorial
+                    tutorial: _tutorial,
+                    canPassThroughSpinners: _canPassThroughSpinners,
+                    textureDirectory: _textureDirectory,
+                    overrideParticles: _overrideParticles,
+                    impactParticlesColor: _impactParticlesColor
                     );
                 Scene.Add(crate);
                 _boxes.Add(crate);
