@@ -41,6 +41,7 @@ namespace FactoryHelper.Entities {
         private readonly TransitionListener _transitionListener;
         private readonly bool _canPassThroughSpinners;
         private readonly ParticleType _p_Impact;
+        private readonly char _debrisTypeOverride;
 
         private Vector2 _prevLiftSpeed;
         private Level _level;
@@ -57,8 +58,8 @@ namespace FactoryHelper.Entities {
         private BirdTutorialGui _tutorialPutDown;
         private bool _isCrucial;
 
-        public ThrowBox(Vector2 position, bool isMetal, bool tutorial = false, bool isSpecial = false, bool isCrucial = false,
-            bool canPassThroughSpinners = false, string textureDirectory = "", bool overrideParticles = false, Color impactParticlesColor = default) 
+        public ThrowBox(Vector2 position, bool isMetal, bool tutorial = false, bool isSpecial = false, bool isCrucial = false, bool canPassThroughSpinners = false,
+            string crateTextureOverride = null, string crucialTextureOverride = null, ParticleType impactParticlesOverride = null, char debrisTypeOverride = '\0') 
             : base(position) {
             Position -= DISPLACEMENT;
             _starterPosition = Position;
@@ -67,18 +68,22 @@ namespace FactoryHelper.Entities {
             _isMetal = isMetal;
             IsSpecial = isSpecial;
             _isCrucial = isCrucial;
-            _canPassThroughSpinners = canPassThroughSpinners;
             _tutorial = tutorial;
+            _canPassThroughSpinners = canPassThroughSpinners;
 
-            textureDirectory = textureDirectory.Trim().TrimEnd('/');
-            string textureDir = string.IsNullOrEmpty(textureDirectory) ? "objects/FactoryHelper/crate" : textureDirectory;
-            string pathString = isMetal ? "crate_metal0" : "crate0";
-
-            Add(_image = new Image(GFX.Game[$"{textureDir}/{pathString}"]));
+            string crateTexture;
+            if (string.IsNullOrEmpty(crateTextureOverride)) {
+                string pathString = isMetal ? "crate_metal0" : "crate0";
+                crateTexture = $"objects/FactoryHelper/crate/{pathString}";
+            } else {
+                crateTexture = crateTextureOverride;
+            }
+            Add(_image = new Image(GFX.Game[crateTexture]));
             _image.Position += DISPLACEMENT;
 
             if (_isCrucial) {
-                Add(_warningImage = new Image(GFX.Game[$"{textureDir}/crucial"]));
+                string crucialTexture = string.IsNullOrEmpty(crucialTextureOverride) ? "objects/FactoryHelper/crate/crucial" : crucialTextureOverride;
+                Add(_warningImage = new Image(GFX.Game[crucialTexture]));
                 _warningImage.Position += DISPLACEMENT;
             }
 
@@ -106,13 +111,32 @@ namespace FactoryHelper.Entities {
             Add(new LightOcclude(0.2f));
             Add(new MirrorReflection());
 
-            _p_Impact = overrideParticles ? new(P_Impact) { Color = impactParticlesColor } : P_Impact;
+            _p_Impact = impactParticlesOverride ?? P_Impact;
+            _debrisTypeOverride = debrisTypeOverride;
         }
 
         public ThrowBox(EntityData data, Vector2 offset)
-            : this(data.Position + offset, data.Bool("isMetal", false), data.Bool("tutorial", false), data.Bool("isSpecial", false), data.Bool("isCrucial", false),
-                   data.Bool("canPassThroughSpinners", false), data.Attr("textureDirectory", ""), data.Bool("overrideParticles", false), data.HexColor("impactParticlesColor", default)) {
+            : this(data.Position + offset, data.Bool("isMetal", false), data.Bool("tutorial", false), data.Bool("isSpecial", false), data.Bool("isCrucial", false), data.Bool("canPassThroughSpinners", false),
+                  GetCrateTextureOverride(data), GetCrucialTextureOverride(data), GetImpactParticlesOverride(data), GetDebrisTypeOverride(data)) {
             _levelName = data.Level.Name;
+        }
+
+        private static string GetCrateTextureOverride(EntityData data) {
+            return data.Bool("overrideTextures", false) ? data.Attr("crateTexturePath") : null;
+        }
+
+        private static string GetCrucialTextureOverride(EntityData data) {
+            return data.Bool("overrideTextures", false) ? data.Attr("crucialTexturePath") : null;
+        }
+
+        private static ParticleType GetImpactParticlesOverride(EntityData data) {
+            return data.Bool("overrideParticles", false) ? new ParticleType(P_Impact) {
+                Color = data.HexColor("impactParticlesColor")
+            } : null;
+        }
+
+        private static char GetDebrisTypeOverride(EntityData data) {
+            return data.Bool("overrideDebris", false) ? data.Char("debrisFromTiletype") : '\0';
         }
 
         private void OnSteamWall(SteamWall steamWall) {
@@ -445,7 +469,9 @@ namespace FactoryHelper.Entities {
 
                 for (int i = 0; i < Width / 8f; i++) {
                     for (int j = 0; j < Height / 8f; j++) {
-                        if (_isMetal) {
+                        if (_debrisTypeOverride != '\0') {
+                            Scene.Add(Engine.Pooler.Create<Debris>().Init(Position + new Vector2(4 + (i * 8), 4 + (j * 8)) + DISPLACEMENT, _debrisTypeOverride, false).BlastFrom(Center));
+                        } else if (_isMetal) {
                             Scene.Add(Engine.Pooler.Create<Debris>().Init(Position + new Vector2(4 + (i * 8), 4 + (j * 8)) + DISPLACEMENT, '8', false).BlastFrom(Center));
                         } else {
                             Scene.Add(Engine.Pooler.Create<Debris>().Init(Position + new Vector2(4 + (i * 8), 4 + (j * 8)) + DISPLACEMENT, '9', false).BlastFrom(Center));

@@ -34,7 +34,7 @@ entities.FactoryHelper/ThrowBox.attributes.description.tutorial=Whether the tuto
 entities.FactoryHelper/ThrowBox.attributes.description.isSpecial=Whether the crate should kill the player and return them to the crate's origin upon destruction or player death.
 entities.FactoryHelper/ThrowBox.attributes.description.isCrucial=Whether the crate should kill the player upon destruction.
 entities.FactoryHelper/ThrowBox.attributes.description.canPassThroughSpinners=Whether the crate should not break in collision with Spinners.
-entities.FactoryHelper/ThrowBox.attributes.description.textureDirectory=Which directory in the Gameplay atlas that the crate should use for its textures.\nIf changed, the directory should be a copy of the default "objects/FactoryHelper/crate", containing the following textures:\n- "crate0" for wooden crates\n- "crate_metal0" for metal crates\n- "crucial" for the frame added if `Is Crucial` is `true`
+
 entities.FactoryHelper/ThrowBox.attributes.description.overrideParticles=If `true`, a new impact particle type will be created for the crate.\nThis is required in order to modify the color of the particles.
 entities.FactoryHelper/ThrowBox.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when the crate hits a solid. Default value: "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
 
@@ -49,7 +49,7 @@ entities.FactoryHelper/ThrowBoxSpawner.attributes.description.fromTop=If `true` 
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.tutorial=Whether the tutorial messsages should show up.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.maximum=The maximum number of crate this spawner can spawn. Destroyed crates do not count towards the maximum.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.canPassThroughSpinners=Whether the spawned crates should not break in collision with Spinners.
-entities.FactoryHelper/ThrowBoxSpawner.attributes.description.textureDirectory=Which directory in the Gameplay atlas that spawned crates should use for their textures.\nIf changed, the directory should be a copy of the default "objects/FactoryHelper/crate", containing the following textures:\n- "crate0" for wooden crates\n- "crate_metal0" for metal crates\n- "crucial" for the frame added if `Is Crucial` is `true`
+
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.overrideParticles=If `true`, a new impact particle type will be created for spawned crates.\nThis is required in order to modify the color of the particles.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when spawned crates hit a solid. Default value: "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
 

@@ -1,14 +1,21 @@
 local drawableSprite = require("structs.drawable_sprite")
+local fakeTilesHelper = require("helpers.fake_tiles")
 
 local crate = {}
 
 crate.name = "FactoryHelper/ThrowBox"
 
-crate.fieldInformation = {
-    impactParticlesColor = {
-        fieldType = "color"
+crate.fieldInformation = function()
+    return {
+        impactParticlesColor = {
+            fieldType = "color"
+        },
+        debrisFromTiletype = {
+            options = fakeTilesHelper.getTilesOptions(),
+            editable = false
+        }
     }
-}
+end
 
 crate.placements = {
     {
@@ -19,9 +26,13 @@ crate.placements = {
             isSpecial = false,
             isCrucial = false,
             canPassThroughSpinners = false,
-            textureDirectory = "objects/FactoryHelper/crate",
+            overrideTextures = false,
+            crateTexturePath = "objects/FactoryHelper/crate/crate0",
+            crucialTexturePath = "objects/FactoryHelper/crate/crucial",
             overrideParticles = false,
-            impactParticlesColor = "9c8d7b"
+            impactParticlesColor = "9c8d7b",
+            overrideDebris = false,
+            debrisFromTiletype = '9'
         }
     },
     {
@@ -32,29 +43,36 @@ crate.placements = {
             isSpecial = false,
             isCrucial = false,
             canPassThroughSpinners = false,
-            textureDirectory = "objects/FactoryHelper/crate",
+            overrideTextures = false,
+            crateTexturePath = "objects/FactoryHelper/crate/crate_metal0",
+            crucialTexturePath = "objects/FactoryHelper/crate/crucial",
             overrideParticles = false,
-            impactParticlesColor = "9c8d7b"
+            impactParticlesColor = "9c8d7b",
+            overrideDebris = false,
+            debrisFromTiletype = '8'
         }
     }
 }
 
---[[function crate.texture(sprite, entity)
-    return entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0"
-end]]
-
 function crate.sprite(room, entity)
     local sprites = {}
 
-    local textureDirData = entity.textureDirectory
-    local textureDir = (textureDirData == nil or textureDirData == "") and "objects/FactoryHelper/crate" or textureDirData
+    if (entity.overrideTextures) then
+        local crateSprite = entity.crateTexturePath or ""
+        table.insert(sprites, drawableSprite.fromTexture(crateSprite, entity))
 
-    local texture = textureDir .. (entity.isMetal and "/crate_metal0" or "/crate0")
-    table.insert(sprites, drawableSprite.fromTexture(texture, entity))
+        if (entity.isCrucial) then
+            local crucialTexture = entity.crucialTexturePath or ""
+            table.insert(sprites, drawableSprite.fromTexture(crucialTexture, entity))
+        end
+    else
+        local crateSprite = entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0"
+        table.insert(sprites, drawableSprite.fromTexture(crateSprite, entity))
 
-    if (entity.isCrucial) then
-        local crucialTexture = textureDir .. "/crucial"
-        table.insert(sprites, drawableSprite.fromTexture(crucialTexture, entity))
+        if (entity.isCrucial) then
+            local crucialTexture = "objects/FactoryHelper/crate/crucial"
+            table.insert(sprites, drawableSprite.fromTexture(crucialTexture, entity))
+        end
     end
 
     return sprites

@@ -1,22 +1,33 @@
 local drawableRectangle = require("structs.drawable_rectangle")
 local drawableSprite = require("structs.drawable_sprite")
+local fakeTilesHelper = require("helpers.fake_tiles")
 
 local crateSpawner = {}
 
 crateSpawner.name = "FactoryHelper/ThrowBoxSpawner"
 
-crateSpawner.fieldInformation = {
-    delay = {
-        minimumValue = 0.0
-    },
-    maximum = {
-        fieldType = "integer",
-        minimumValue = 0
-    },
-    impactParticlesColor = {
-        fieldType = "color"
+crateSpawner.fieldInformation = function()
+    return {
+        delay = {
+            minimumValue = 0.0
+        },
+        maximum = {
+            fieldType = "integer",
+            minimumValue = 0
+        },
+        impactParticlesColor = {
+            fieldType = "color"
+        },
+        debrisFromTiletype = {
+            options = fakeTilesHelper.getTilesOptions(),
+            editable = false
+        },
+        metalDebrisFromTiletype = {
+            options = fakeTilesHelper.getTilesOptions(),
+            editable = false
+        }
     }
-}
+end
 
 crateSpawner.placements = {
     {
@@ -31,9 +42,14 @@ crateSpawner.placements = {
             tutorial = false,
             startActive = true,
             canPassThroughSpinners = false,
-            textureDirectory = "objects/FactoryHelper/crate",
+            overrideTextures = false,
+            woodenCrateTexturePath = "objects/FactoryHelper/crate/crate0",
+            metalCrateTexturePath = "objects/FactoryHelper/crate/crate_metal0",
             overrideParticles = false,
-            impactParticlesColor = "9c8d7b"
+            impactParticlesColor = "9c8d7b",
+            overrideDebris = false,
+            woodenDebrisFromTiletype = '9',
+            metalDebrisFromTiletype = '8'
         }
     }
 }
@@ -44,10 +60,13 @@ local randomColor = {1.0, 0.5, 1.0, 0.2}
 function crateSpawner.sprite(room, entity)
     local sprites = {}
 
-    local textureDirData = entity.textureDirectory
-    local textureDir = (textureDirData == nil or textureDirData == "") and "objects/FactoryHelper/crate" or textureDirData
+    local texture = ""
+    if (entity.overrideTextures) then
+        texture = entity.isMetal and (entity.metalCrateTexturePath or "") or (entity.woodenCrateTexturePath or "")
+    else
+        texture = entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0"
+    end
 
-    local texture = textureDir .. (entity.isMetal and "/crate_metal0" or "/crate0")
     local crateSprite = drawableSprite.fromTexture(texture, entity)
     crateSprite.color = {1.0, 1.0, 1.0, 0.5}
 
