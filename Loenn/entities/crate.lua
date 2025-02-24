@@ -54,30 +54,34 @@ crate.placements = {
     }
 }
 
+local justification = {0.0, 0.0}
+
 function crate.sprite(room, entity)
     local sprites = {}
 
     if (entity.overrideTextures) then
-        local crateSprite = entity.crateTexturePath or ""
-        table.insert(sprites, drawableSprite.fromTexture(crateSprite, entity))
+        local crateSprite = drawableSprite.fromTexture(entity.crateTexturePath or "", entity)
+        crateSprite:setJustification(justification)
+        table.insert(sprites, crateSprite)
 
         if (entity.isCrucial) then
-            local crucialTexture = entity.crucialTexturePath or ""
-            table.insert(sprites, drawableSprite.fromTexture(crucialTexture, entity))
+            local crucialSprite = drawableSprite.fromTexture(entity.crucialTexturePath or "", entity)
+            crucialSprite:setJustification(justification)
+            table.insert(sprites, crucialSprite)
         end
     else
-        local crateSprite = entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0"
-        table.insert(sprites, drawableSprite.fromTexture(crateSprite, entity))
+        local crateSprite = drawableSprite.fromTexture(entity.isMetal and "objects/FactoryHelper/crate/crate_metal0" or "objects/FactoryHelper/crate/crate0", entity)
+        crateSprite:setJustification(justification)
+        table.insert(sprites, crateSprite)
 
         if (entity.isCrucial) then
-            local crucialTexture = "objects/FactoryHelper/crate/crucial"
-            table.insert(sprites, drawableSprite.fromTexture(crucialTexture, entity))
+            local crucialSprite = drawableSprite.fromTexture("objects/FactoryHelper/crate/crucial", entity)
+            crucialSprite:setJustification(justification)
+            table.insert(sprites, crucialSprite)
         end
     end
 
     return sprites
 end
-
-crate.justification = {0.0, 0.0}
 
 return crate
