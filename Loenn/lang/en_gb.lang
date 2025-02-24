@@ -34,9 +34,13 @@ entities.FactoryHelper/ThrowBox.attributes.description.tutorial=Whether the tuto
 entities.FactoryHelper/ThrowBox.attributes.description.isSpecial=Whether the crate should kill the player and return them to the crate's origin upon destruction or player death.
 entities.FactoryHelper/ThrowBox.attributes.description.isCrucial=Whether the crate should kill the player upon destruction.
 entities.FactoryHelper/ThrowBox.attributes.description.canPassThroughSpinners=Whether the crate should not break in collision with Spinners.
-
-entities.FactoryHelper/ThrowBox.attributes.description.overrideParticles=If `true`, a new impact particle type will be created for the crate.\nThis is required in order to modify the color of the particles.
-entities.FactoryHelper/ThrowBox.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when the crate hits a solid. Default value: "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
+entities.FactoryHelper/ThrowBox.attributes.description.overrideTextures=Whether to use custom texture paths instead of the default ones, regardless of the type of the crate.
+entities.FactoryHelper/ThrowBox.attributes.description.crateTexturePath=What texture to use for the crate.\nDefault value is "objects/FactoryHelper/crate/crate0" if wooden, or "objects/FactoryHelper/crate/crate_metal0" if metal.\nChanging this has no effect if `Override Textures` is `false`.
+entities.FactoryHelper/ThrowBox.attributes.description.crucialTexturePath=What texture to add to the crate if `Is Crucial` is `true`.\nDefault value is "objects/FactoryHelper/crate/crucial".\nChanging this has no effect if `Override Textures` is `false`.
+entities.FactoryHelper/ThrowBox.attributes.description.overrideParticles=Whether to create a new impact particle type for the crate, to be used instead of the default.
+entities.FactoryHelper/ThrowBox.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when the crate hits a solid. Default value is "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
+entities.FactoryHelper/ThrowBox.attributes.description.overrideDebris=Whether to use a different type of debris that will appear when the crate breaks regardless of its type.
+entities.FactoryHelper/ThrowBox.attributes.description.debrisFromTiletype=From which tiletype to use the debris that will appear when the crate breaks.\nDefault value is '9' (Wood) if wooden, or '8' (Rock) if metal.\nChanging this has no effect if `Override Debris` is `false`.\nYou can create new debris types by adding the `debris` attribute to modded tilesets in your `ForegroundTiles.xml`.\nSee https://github.com/EverestAPI/Resources/wiki/Custom-Tilesets#adding-custom-debris for details.
 
 # Crate Spawner
 entities.FactoryHelper/ThrowBoxSpawner.placements.name.crate_spawner=Crate Spawner
@@ -49,9 +53,14 @@ entities.FactoryHelper/ThrowBoxSpawner.attributes.description.fromTop=If `true` 
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.tutorial=Whether the tutorial messsages should show up.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.maximum=The maximum number of crate this spawner can spawn. Destroyed crates do not count towards the maximum.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.canPassThroughSpinners=Whether the spawned crates should not break in collision with Spinners.
-
-entities.FactoryHelper/ThrowBoxSpawner.attributes.description.overrideParticles=If `true`, a new impact particle type will be created for spawned crates.\nThis is required in order to modify the color of the particles.
-entities.FactoryHelper/ThrowBoxSpawner.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when spawned crates hit a solid. Default value: "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.overrideTextures=Whether to use custom texture paths instead of the default ones for spawned crates depending on their type.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.woodenCrateTexturePath=What texture to use for spawned crates if they are wooden.\nDefault value is "objects/FactoryHelper/crate/crate0".\nChanging this has no effect if `Override Textures` is `false`.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.metalCrateTexturePath=What texture to use for spawned crates if they are metal.\nDefault value is "objects/FactoryHelper/crate/crate_metal0".\nChanging this has no effect if `Override Textures` is `false`.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.overrideParticles=Whether to create a new impact particle type for spawned crates, to be used instead of the default.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.impactParticlesColor=The color in hexadecimal for the particles emitted when spawned crates hit a solid. Default value is "9c8d7b".\nChanging this has no effect if `Override Particles` is `false`.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.overrideDebris=Whether to use a different type of debris that will appear when spawned crates break depending on their type.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.woodenDebrisFromTiletype=From which tiletype to use the debris that will appear when spawned crates break if they are wooden.\nDefault value is '9' (Wood).\nChanging this has no effect if `Override Debris` is `false`.\nYou can create new debris types by adding the `debris` attribute to modded tilesets in your `ForegroundTiles.xml`.\nSee https://github.com/EverestAPI/Resources/wiki/Custom-Tilesets#adding-custom-debris for details.
+entities.FactoryHelper/ThrowBoxSpawner.attributes.description.metalDebrisFromTiletype=From which tiletype to use the debris that will appear when spawned crates break if they are metal.\nDefault value is '8' (Rock).\nChanging this has no effect if `Override Debris` is `false`.\nYou can create new debris types by adding the `debris` attribute to modded tilesets in your `ForegroundTiles.xml`.\nSee https://github.com/EverestAPI/Resources/wiki/Custom-Tilesets#adding-custom-debris for details.
 
 # Dash Fuse Box
 entities.FactoryHelper/DashFuseBox.placements.name.left=Dash Fuse Box (Left)
