@@ -22,7 +22,7 @@ namespace FactoryHelper.Entities {
             SpeedMax = 24f
         };
 
-        protected Circle _boomCollider;
+        protected readonly BoomCollider _boomCollider;
 
         private readonly float _initialDelay;
         private readonly Sprite _sprite;
@@ -36,7 +36,7 @@ namespace FactoryHelper.Entities {
         private Coroutine _sequence;
         private bool _steamAnger = false;
 
-        public BoomBox(Vector2 position, string activationId, float initialDelay, bool startActive) 
+        public BoomBox(Vector2 position, string activationId, float initialDelay, bool startActive)
             : base(position, 24, 24, false) {
             Add(Activator = new FactoryActivator());
             Activator.StartOn = startActive;
@@ -64,7 +64,7 @@ namespace FactoryHelper.Entities {
             _boomSprite.CenterOrigin();
             _boomSprite.Position = new Vector2(Width / 2, Height / 2);
 
-            _boomCollider = new Circle(40f, X + Width / 2, Y + Height / 2);
+            _boomCollider = new BoomCollider(position + new Vector2(Width / 2, Height / 2));
             Add(_sfx = new SoundSource());
             _sfx.Position = new Vector2(Width / 2, Height / 2);
             Add(new LightOcclude(0.2f));
@@ -146,6 +146,7 @@ namespace FactoryHelper.Entities {
 
         public override void Added(Scene scene) {
             base.Added(scene);
+            scene.Add(_boomCollider);
             Activator.HandleStartup(scene);
         }
 
@@ -170,13 +171,6 @@ namespace FactoryHelper.Entities {
             if (_boomSprite.Visible && !_boomSprite.Active) {
                 _boomSprite.Visible = false;
             }
-        }
-
-        public override void DebugRender(Camera camera) {
-            base.DebugRender(camera);
-            if (Activator.IsOn) {
-                _boomCollider.Render(camera, Color.HotPink);
-            }            
         }
 
         private void HandleAngryMode() {
@@ -223,7 +217,7 @@ namespace FactoryHelper.Entities {
             (Scene as Level).Displacement.AddBurst(Center, 0.35f, 4f, 64f, 0.5f);
             Player player = Scene.Tracker.GetEntity<Player>();
             Collidable = false;
-            if (player != null && _boomCollider.Collide(player) && !Scene.CollideCheck<Solid>(player.Center, Center)) {
+            if (player != null && player.CollideCheck(_boomCollider) && !Scene.CollideCheck<Solid>(player.Center, Center)) {
                 if (player.Bottom < Top && player.Top > Bottom) {
                     player.ExplodeLaunch(Center, false, true);
                 } else {
@@ -232,6 +226,12 @@ namespace FactoryHelper.Entities {
             }
 
             Collidable = true;
+        }
+
+        protected class BoomCollider : Entity {
+            public BoomCollider(Vector2 position) : base(position) {
+                Collider = new Circle(40f, 0, 0);
+            }
         }
     }
 }
