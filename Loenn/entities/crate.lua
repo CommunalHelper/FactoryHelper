@@ -25,14 +25,7 @@ crate.placements = {
             tutorial = false,
             isSpecial = false,
             isCrucial = false,
-            canPassThroughSpinners = false,
-            overrideTextures = false,
-            crateTexturePath = "objects/FactoryHelper/crate/crate0",
-            crucialTexturePath = "objects/FactoryHelper/crate/crucial",
-            overrideParticles = false,
-            impactParticlesColor = "9c8d7b",
-            overrideDebris = false,
-            debrisFromTiletype = '9'
+            canPassThroughSpinners = false
         }
     },
     {
@@ -42,8 +35,35 @@ crate.placements = {
             tutorial = false,
             isSpecial = false,
             isCrucial = false,
+            canPassThroughSpinners = false
+        }
+    },
+    {
+        name = "reskin_wood",
+        data = {
+            isMetal = false,
+            tutorial = false,
+            isSpecial = false,
+            isCrucial = false,
             canPassThroughSpinners = false,
-            overrideTextures = false,
+            overrideTextures = true,
+            crateTexturePath = "objects/FactoryHelper/crate/crate0",
+            crucialTexturePath = "objects/FactoryHelper/crate/crucial",
+            overrideParticles = false,
+            impactParticlesColor = "9c8d7b",
+            overrideDebris = false,
+            debrisFromTiletype = '9'
+        }
+    },
+    {
+        name = "reskin_metal",
+        data = {
+            isMetal = true,
+            tutorial = false,
+            isSpecial = false,
+            isCrucial = false,
+            canPassThroughSpinners = false,
+            overrideTextures = true,
             crateTexturePath = "objects/FactoryHelper/crate/crate_metal0",
             crucialTexturePath = "objects/FactoryHelper/crate/crucial",
             overrideParticles = false,

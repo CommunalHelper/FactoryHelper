@@ -41,8 +41,22 @@ crateSpawner.placements = {
             fromTop = true,
             tutorial = false,
             startActive = true,
+            canPassThroughSpinners = false
+        }
+    },
+    {
+        name = "crate_spawner_reskin",
+        data = {
+            delay = 1.0,
+            maximum = 0,
+            activationId = "",
+            isMetal = false,
+            isRandom = false,
+            fromTop = true,
+            tutorial = false,
+            startActive = true,
             canPassThroughSpinners = false,
-            overrideTextures = false,
+            overrideTextures = true,
             woodenCrateTexturePath = "objects/FactoryHelper/crate/crate0",
             metalCrateTexturePath = "objects/FactoryHelper/crate/crate_metal0",
             overrideParticles = false,

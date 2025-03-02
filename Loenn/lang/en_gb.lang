@@ -29,6 +29,8 @@ entities.FactoryHelper/Conveyor.attributes.description.startLeft=If `true` the c
 # Crate
 entities.FactoryHelper/ThrowBox.placements.name.wood=Crate (Wood)
 entities.FactoryHelper/ThrowBox.placements.name.metal=Crate (Metal)
+entities.FactoryHelper/ThrowBox.placements.name.reskin_wood=Crate (Reskinnable, Wood)
+entities.FactoryHelper/ThrowBox.placements.name.reskin_metal=Crate (Reskinnable, Metal)
 entities.FactoryHelper/ThrowBox.attributes.description.isMetal=Whether the crate is metallic or not. If `false` it will be wooden.\nWooden crates will break on high-speed impacts.
 entities.FactoryHelper/ThrowBox.attributes.description.tutorial=Whether the tutorial messsages should show up.
 entities.FactoryHelper/ThrowBox.attributes.description.isSpecial=Whether the crate should kill the player and return them to the crate's origin upon destruction or player death.
@@ -44,6 +46,7 @@ entities.FactoryHelper/ThrowBox.attributes.description.debrisFromTiletype=From w
 
 # Crate Spawner
 entities.FactoryHelper/ThrowBoxSpawner.placements.name.crate_spawner=Crate Spawner
+entities.FactoryHelper/ThrowBoxSpawner.placements.name.crate_spawner_reskin=Crate Spawner (Reskinnable)
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.startActive=If `true` the entity will initially be active.
 entities.FactoryHelper/ThrowBoxSpawner.attributes.description.delay=The amount of time before a new crate is spawned after the previous one in seconds.
