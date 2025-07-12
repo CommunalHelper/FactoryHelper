@@ -28,6 +28,8 @@ namespace FactoryHelper {
             FactoryHelperHooks.Load();
         }
 
-        public override void Unload() { }
+        public override void Unload() {
+            FactoryHelperHooks.Unload();
+        }
     }
 }

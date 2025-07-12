@@ -20,6 +20,18 @@ namespace FactoryHelper {
             On.Celeste.DashBlock.RemoveAndFlagAsGone += DashBlockRemoveAndFlagAsGone;
         }
 
+        public static void Unload() {
+            On.Celeste.Player.ctor -= ctor;
+            On.Celeste.Level.LoadLevel -= LoadLevel;
+            On.Celeste.Player.Die -= PlayerDie;
+            On.Celeste.LevelExit.Routine -= RespawnRoutine;
+            On.Celeste.Player.Pickup -= Pickup;
+            On.Celeste.Lookout.LookRoutine -= LookRoutine;
+            On.Celeste.LevelEnter.Go -= LevelEnterGo;
+            On.Celeste.DashBlock.Break_Vector2_Vector2_bool_bool -= DashBlockBreak;
+            On.Celeste.DashBlock.RemoveAndFlagAsGone -= DashBlockRemoveAndFlagAsGone;
+        }
+
         private static void DashBlockRemoveAndFlagAsGone(On.Celeste.DashBlock.orig_RemoveAndFlagAsGone orig, DashBlock self) {
             if (self is FactoryActivatorDashBlock) {
                 self.RemoveSelf();

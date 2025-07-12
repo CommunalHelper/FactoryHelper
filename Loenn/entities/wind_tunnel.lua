@@ -8,6 +8,13 @@ windTunnel.fieldInformation = {
     direction = {
         editable = false,
         options = directions
+    },
+    particleColors = {
+        fieldType = "list",
+        elementOptions = {
+            fieldType = "color"
+        },
+        elementDefault = "ffffff"
     }
 }
 
@@ -22,7 +29,7 @@ for _, direction in ipairs(directions) do
             activationId = "",
             strength = 100.0,
             startActive = true,
-            particleColors  = "808080,545151,ada5a5",
+            particleColors = "808080,545151,ada5a5",
             showParticles = true
         }
     }
