@@ -13,11 +13,11 @@ namespace FactoryHelper.Entities {
         private ZipMoverPathRenderer pathRenderer;
 
         public BoomBoxZip(EntityData data, Vector2 offset) 
-            : this(data.Position + offset, data.Attr("activationId", ""), data.Float("initialDelay", 0f), data.Bool("startActive", false), data.Nodes[0] + offset) {
+            : this(data.Position + offset, data.Attr("activationId", ""), data.Float("initialDelay", 0f), data.Bool("startActive", false), data.Attr("spriteDir", ""), data.Nodes[0] + offset) {
         }
 
-        public BoomBoxZip(Vector2 position, string activationId, float initialDelay, bool startActive, Vector2 target) 
-            : base(position, activationId, initialDelay, startActive) {
+        public BoomBoxZip(Vector2 position, string activationId, float initialDelay, bool startActive, string spriteDir, Vector2 target) 
+            : base(position, activationId, initialDelay, startActive, spriteDir) {
             Add(new Coroutine(ZipMoverSequence()));
             this.start = this.Position;
             this.target = target;

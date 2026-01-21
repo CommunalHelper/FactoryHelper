@@ -13,12 +13,14 @@ entities.FactoryHelper/BoomBox.placements.name.active=Boom Box
 entities.FactoryHelper/BoomBox.attributes.description.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
 entities.FactoryHelper/BoomBox.attributes.description.initialDelay=The time it takes before the box starts turning on in seconds after activated.
 entities.FactoryHelper/BoomBox.attributes.description.startActive=If `true` the boom box will initially be active.
+entities.FactoryHelper/BoomBox.attributes.description.spriteDir=The directory to look in for boom box sprites, relative to "Graphics/Atlases/Gameplay/".\nThe directory must contain "idle", "activating", "active", "angry", and "resetting" animations for the block, and a "boom" animation for the explosion.\nIf left empty, the default sprites in "objects/FactoryHelper/boomBox" will be used.
 
 # Boom Box Zip
 entities.FactoryHelper/BoomBoxZip.placements.name.active=Boom Box Zip
 entities.FactoryHelper/BoomBoxZip.attributes.description.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
 entities.FactoryHelper/BoomBoxZip.attributes.description.initialDelay=The time it takes before the box starts turning on in seconds after activated.
 entities.FactoryHelper/BoomBoxZip.attributes.description.startActive=If `true` the boom box will initially be active.
+entities.FactoryHelper/BoomBoxZip.attributes.description.spriteDir=The directory to look in for boom box sprites, relative to "Graphics/Atlases/Gameplay/".\nThe directory must contain "idle", "activating", "active", "angry", and "resetting" animations for the block, and a "boom" animation for the explosion.\nIf left empty, the default sprites in "objects/FactoryHelper/boomBox" will be used.
 
 # Conveyor
 entities.FactoryHelper/Conveyor.placements.name.start_left=Conveyor (Left)

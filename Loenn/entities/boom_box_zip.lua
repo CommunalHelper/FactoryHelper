@@ -24,12 +24,11 @@ boomBoxZip.placements = {
         width = 24,
         activationId = "",
         initialDelay = 0.0,
-        startActive = true
+        startActive = true,
+        spriteDir = ""
     }
 }
 
-local inactiveTexture = "objects/FactoryHelper/boomBox/idle00"
-local activeTexture = "objects/FactoryHelper/boomBox/active00"
 local cogTexture = "objects/zipmover/cog"
 local ropeColor = {77 / 255, 60 / 255, 34 / 255}
 
@@ -61,10 +60,10 @@ end
 
 function boomBoxZip.sprite(room, entity)
     local sprites = {}
-    
+
     local x, y = entity.x or 0, entity.y or 0
     local nodes = entity.nodes or {{x = 0, y = 0}}
-    
+
     -- Draw cog + rope
     local halfWidth = 12
     local centerX = x + halfWidth
@@ -74,19 +73,20 @@ function boomBoxZip.sprite(room, entity)
     addNodeSprites(sprites, entity, centerX, centerY, centerNodeX, centerNodeY)
     
     -- Draw boom box
-    local boomBoxTex = entity.startActive and activeTexture or inactiveTexture
+    local spriteDir = (entity.spriteDir or "") == "" and "objects/FactoryHelper/boomBox" or entity.spriteDir
+    local boomBoxTex = spriteDir .. (entity.startActive and "/active00" or "/idle00")
     local boomBoxSprite = drawableSprite.fromTexture(boomBoxTex, entity)
     boomBoxSprite:setPosition(centerX, centerY)
     boomBoxSprite:setJustification(0.5, 0.5)
     table.insert(sprites, boomBoxSprite)
-    
+
     return sprites
 end
 
 function boomBoxZip.selection(room, entity)
     local x, y = entity.x or 0, entity.y or 0
     local nodes = entity.nodes or {{x = 0, y = 0}}
-    
+
     local halfWidth = 12
     local centerX = x + halfWidth
     local centerY = y + halfWidth
