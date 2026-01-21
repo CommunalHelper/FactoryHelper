@@ -20,7 +20,10 @@ entities.FactoryHelper/BoomBoxZip.placements.name.active=Boom Box Zip
 entities.FactoryHelper/BoomBoxZip.attributes.description.activationId=String value of the entity's activator ID. When a factory activator with this ID is turned on, the entity will toggle state.
 entities.FactoryHelper/BoomBoxZip.attributes.description.initialDelay=The time it takes before the box starts turning on in seconds after activated.
 entities.FactoryHelper/BoomBoxZip.attributes.description.startActive=If `true` the boom box will initially be active.
-entities.FactoryHelper/BoomBoxZip.attributes.description.spriteDir=The directory to look in for boom box sprites, relative to "Graphics/Atlases/Gameplay/".\nThe directory must contain "idle", "activating", "active", "angry", and "resetting" animations for the block, and a "boom" animation for the explosion.\nIf left empty, the default sprites in "objects/FactoryHelper/boomBox" will be used.
+entities.FactoryHelper/BoomBoxZip.attributes.description.spriteDir=The directory to look in for boom box sprites, relative to "Graphics/Atlases/Gameplay/".\nThe directory must contain "idle", "activating", "active", "angry", and "resetting" animations for the block, and a "boom" animation for the explosion.\nIf a "zipMoverCog" texture is also present in the directory, it will be used for the zip mover cogs instead of the vanilla texture.\nIf left empty, the default sprites in "objects/FactoryHelper/boomBox" will be used.
+entities.FactoryHelper/BoomBoxZip.attributes.description.ropeColor=The color to use for the darker parts of the zip mover rope.\nDefault value is "4d3c22".
+entities.FactoryHelper/BoomBoxZip.attributes.description.ropeLightColor=The color to use for the lighter parts of the zip mover rope.\nDefault value is "766c49".
+entities.FactoryHelper/BoomBoxZip.attributes.description.sparkParticleColor=The color to use for the spark particles that appear on the zip mover cogs while the box is moving forwards.\nDefault value is "fff538".
 
 # Conveyor
 entities.FactoryHelper/Conveyor.placements.name.start_left=Conveyor (Left)
