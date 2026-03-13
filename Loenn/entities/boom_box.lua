@@ -13,15 +13,14 @@ boomBox.placements = {
     data = {
         activationId = "",
         initialDelay = 0.0,
-        startActive = true
+        startActive = true,
+        spriteDir = ""
     }
 }
 
-local inactiveTexture = "objects/FactoryHelper/boomBox/idle00"
-local activeTexture = "objects/FactoryHelper/boomBox/active00"
-
 function boomBox.texture(room, entity)
-    return entity.startActive and activeTexture or inactiveTexture
+    local spriteDir = (entity.spriteDir or "") == "" and "objects/FactoryHelper/boomBox" or entity.spriteDir
+    return spriteDir .. (entity.startActive and "/active00" or "/idle00")
 end
 
 boomBox.justification = {0.0, 0.0}

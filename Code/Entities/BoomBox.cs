@@ -36,7 +36,7 @@ namespace FactoryHelper.Entities {
         private Coroutine _sequence;
         private bool _steamAnger = false;
 
-        public BoomBox(Vector2 position, string activationId, float initialDelay, bool startActive)
+        public BoomBox(Vector2 position, string activationId, float initialDelay, bool startActive, string spriteDir)
             : base(position, 24, 24, false) {
             Add(Activator = new FactoryActivator());
             Activator.StartOn = startActive;
@@ -50,14 +50,16 @@ namespace FactoryHelper.Entities {
 
             _initialDelay = initialDelay;
 
-            Add(_sprite = new Sprite(GFX.Game, "objects/FactoryHelper/boomBox/"));
+            string spritePath = string.IsNullOrEmpty(spriteDir) ? "objects/FactoryHelper/boomBox/" : spriteDir + "/";
+
+            Add(_sprite = new Sprite(GFX.Game, spritePath));
             _sprite.Add("idle", "idle", 0.2f, "idle");
             _sprite.Add("activating", "activating", 0.2f, "activating");
             _sprite.Add("active", "active", 0.15f, "active");
             _sprite.Add("angry", "angry", 0.05f, "angry");
             _sprite.Add("resetting", "resetting", 0.15f, "active");
 
-            Add(_boomSprite = new Sprite(GFX.Game, "objects/FactoryHelper/boomBox/"));
+            Add(_boomSprite = new Sprite(GFX.Game, spritePath));
             _boomSprite.Add("boom", "boom", 0.04f);
             _boomSprite.Color = Color.White * 0.5f;
             _boomSprite.Visible = false;
@@ -71,7 +73,7 @@ namespace FactoryHelper.Entities {
         }
 
         public BoomBox(EntityData data, Vector2 offest)
-            : this(data.Position + offest, data.Attr("activationId", ""), data.Float("initialDelay", 0f), data.Bool("startActive", false)) {
+            : this(data.Position + offest, data.Attr("activationId", ""), data.Float("initialDelay", 0f), data.Bool("startActive", false), data.Attr("spriteDir", "")) {
         }
 
         public FactoryActivator Activator { get; }
